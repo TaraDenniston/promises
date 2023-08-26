@@ -11,3 +11,21 @@ axios.get(`${baseUrl}/new/draw`)
   .catch(error => console.log(error));
 
 
+// 2.
+let cards = []
+axios.get(`${baseUrl}/new/draw`)
+  .then(response => {
+    cards.push(response.data.cards[0])
+    return axios.get(`${baseUrl}/${response.data.deck_id}/draw`)
+  })
+  .then(response => {
+    cards.push(response.data.cards[0])
+    cards.forEach(card => {
+        console.log(`${card.value} of ${card.suit}`)
+    })
+  })
+
+
+
+
+
